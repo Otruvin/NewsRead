@@ -2,6 +2,7 @@ package com.example.newsread.model;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,17 +32,17 @@ public class PieceNewsAdapter extends RecyclerView.Adapter<PieceNewsAdapter.Piec
     @Override
     public PieceNewsHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        View view = layoutInflater.inflate(R.layout.piece_news, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.piece_news_card, viewGroup, false);
         return new PieceNewsHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PieceNewsHolder pieceNewsHolder, int i) {
-        pieceNewsHolder.textDescriptionPieceNews.setText(dataList.get(i).getDescription());
-        pieceNewsHolder.datePieceNews.setText(dataList.get(i).getPublishedAt());
-        pieceNewsHolder.nameAuthorPiceNews.setText(dataList.get(i).getSource().getName());
-        Picasso.with(realTimeActivity).load(dataList.get(i)
-                .getUrlToImage())
+        pieceNewsHolder.pieceNewsTitle.setText(dataList.get(i).getTitle());
+        Picasso.with(realTimeActivity)
+                .load(dataList.get(i).getUrlToImage())
+                .fit()
+                .centerCrop()
                 .into(pieceNewsHolder.imagePieceNews);
 
         pieceNewsHolder.itemView.setOnClickListener( (View v) -> {
@@ -56,17 +57,15 @@ public class PieceNewsAdapter extends RecyclerView.Adapter<PieceNewsAdapter.Piec
 
     class PieceNewsHolder extends RecyclerView.ViewHolder
     {
-        TextView nameAuthorPiceNews;
-        TextView datePieceNews;
-        TextView textDescriptionPieceNews;
+        TextView pieceNewsTitle;
         ImageView imagePieceNews;
+        CardView cardView;
 
         public PieceNewsHolder(@NonNull View itemView) {
             super(itemView);
-            nameAuthorPiceNews = (TextView) itemView.findViewById(R.id.piece_news_source);
-            datePieceNews = (TextView) itemView.findViewById(R.id.piece_news_date);
-            textDescriptionPieceNews = (TextView) itemView.findViewById((R.id.piece_news_description));
-            imagePieceNews = (ImageView) itemView.findViewById(R.id.piece_news_image);
+            cardView = (CardView) itemView.findViewById(R.id.card_view);
+            pieceNewsTitle = (TextView) itemView.findViewById(R.id.piece_news_ttl);
+            imagePieceNews = (ImageView) itemView.findViewById(R.id.piece_news_img);
         }
     }
 }

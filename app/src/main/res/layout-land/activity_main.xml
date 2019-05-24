@@ -8,11 +8,11 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_news"
-        android:layout_width="330dp"
-        android:layout_height="673dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="0dp"
+        android:layout_height="380dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="45dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

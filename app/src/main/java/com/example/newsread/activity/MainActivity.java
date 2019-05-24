@@ -1,7 +1,10 @@
 package com.example.newsread.activity;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
     private NewsContract.presenter presenter;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    Intent intentWithNewsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
 
         presenter = new NewsPresenter(this, new GetNewsIntractor());
         presenter.requestDataFormsServer();
-
+        intentWithNewsView = new Intent(this, NewsViewActivity.class);
 
 
     }
@@ -50,8 +55,9 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
     private RecyclerClickListener recyclerClickListener = new RecyclerClickListener() {
         @Override
         public void onItemClick(Article article) {
-            Toast.makeText(MainActivity.this, "List title: " +
-                    article.getTitle(), Toast.LENGTH_SHORT).show();
+            intentWithNewsView.putExtra("URL", article.getUrl());
+            Log.wtf("Title: ", article.getTitle());
+            startActivity(intentWithNewsView);
         }
     };
 
@@ -96,7 +102,15 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
     private void initializeRecycleView()
     {
         recyclerView = (RecyclerView) findViewById(R.id.list_news);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+            layoutManager = new GridLayoutManager(MainActivity.this, 2);
+        }
+        else
+        {
+            layoutManager = new GridLayoutManager(MainActivity.this, 1);
+        }
+
         recyclerView.setLayoutManager(layoutManager);
     }
 }
