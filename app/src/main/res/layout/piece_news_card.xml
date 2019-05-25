@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="article"
+            type="com.example.newsread.model.Article"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:orientation="vertical"
+        android:padding="5pt">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="7pt">
+
+                <ImageView
+                    android:id="@+id/piece_news_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:paddingBottom="10pt"
+                    card_view:imageUrl="@{article.urlToImage}"
+                    tools:srcCompat="@tools:sample/avatars[0]" />
+
+                <TextView
+                    android:id="@+id/piece_news_ttl"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:autoSizeTextType="uniform"
+                    android:text="@{article.title}"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/piece_news_date"
+                        android:layout_width="170dp"
+                        android:layout_height="34dp"
+                        android:layout_weight="1"
+                        android:text="@{article.publishedAt}"
+                        android:textAlignment="textStart"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/pice_news_source"
+                        android:layout_width="202dp"
+                        android:layout_height="34dp"
+                        android:layout_weight="1"
+                        android:text="@{article.source.name}"
+                        android:textAlignment="textEnd"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</layout>
