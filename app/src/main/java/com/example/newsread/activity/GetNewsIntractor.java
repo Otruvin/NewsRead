@@ -16,16 +16,34 @@ import retrofit2.Response;
 
 public class GetNewsIntractor implements NewsContract.GetNewsIntractor {
 
+    ApiService api = RetroClient.getApiService();
+
     @Override
     public void getNewsArrayList(OnFinishedListener onFinishedListener) {
 
-        ApiService api = RetroClient.getApiService();
-
         Call<ListArticles> articlesCall = api.getMyJSON();
 
-        Log.wtf("URL loaded", articlesCall.request().url() + "");
+        //Log.wtf("URL loaded", articlesCall.request().url() + "");
 
         articlesCall.enqueue(new Callback<ListArticles>() {
+            @Override
+            public void onResponse(Call<ListArticles> call, Response<ListArticles> response) {
+                onFinishedListener.onFinished((ArrayList<Article>) response.body().getArticles());
+            }
+
+            @Override
+            public void onFailure(Call<ListArticles> call, Throwable t) {
+                onFinishedListener.onFailure(t);
+            }
+        });
+    }
+
+    @Override
+    public void getNewsArrayListToDate(OnFinishedListener onFinishedListener, String date) {
+
+        Call<ListArticles> articlesCallToDate = api.getMyJSONToDate(date);
+
+        articlesCallToDate.enqueue(new Callback<ListArticles>() {
             @Override
             public void onResponse(Call<ListArticles> call, Response<ListArticles> response) {
                 onFinishedListener.onFinished((ArrayList<Article>) response.body().getArticles());

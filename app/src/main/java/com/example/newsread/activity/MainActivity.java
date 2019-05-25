@@ -73,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
 
     @Override
     public void setDataTorecyclerView(ArrayList<Article> articles) {
-        PieceNewsAdapter pieceNewsAdapter = new PieceNewsAdapter(articles, recyclerClickListener);
+        PieceNewsAdapter pieceNewsAdapter = new PieceNewsAdapter(articles, recyclerClickListener,
+                MainActivity.this, recyclerView);
         recyclerView.setAdapter(pieceNewsAdapter);
     }
 

@@ -34,5 +34,6 @@ public interface NewsContract {
         }
 
         void getNewsArrayList(OnFinishedListener onFinishedListener);
+        void getNewsArrayListToDate(OnFinishedListener onFinishedListener, String date);
     }
 }
