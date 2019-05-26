@@ -1,12 +1,11 @@
 package com.example.newsread.activity;
 
-import android.util.Log;
-
 import com.example.newsread.model.Article;
 
 import java.util.ArrayList;
 
-public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNewsIntractor.OnFinishedListener {
+public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNewsIntractor.OnFinishedListener,
+                                        NewsContract.GetNewsIntractor.OnFinishAddListener{
 
     private NewsContract.ShowNewsActivity showNewsActivity;
     private NewsContract.GetNewsIntractor getNewsIntractor;
@@ -25,6 +24,7 @@ public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNe
     public void requestDataFormsServer() {
         showNewsActivity.showProgress();
         getNewsIntractor.getNewsArrayList(this);
+
     }
 
     @Override
@@ -33,6 +33,9 @@ public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNe
         {
             showNewsActivity.setDataTorecyclerView(articles);
             showNewsActivity.hideProgress();
+            showNewsActivity.setArticles(articles);
+            showNewsActivity.setStringEndData(articles);
+
         }
     }
 
@@ -44,4 +47,22 @@ public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNe
             showNewsActivity.hideProgress();
         }
     }
+
+    @Override
+    public void requestDataFromServerToAddArticles(String endDate) {
+        getNewsIntractor.getNewsArrayListToDate(this, endDate, "latest");
+    }
+
+    @Override
+    public void onFinishedAdd(ArrayList<Article> articles) {
+        showNewsActivity.addDataToListArticles(articles);
+        showNewsActivity.setStringEndData(articles);
+        showNewsActivity.trueShouldLoadMore();
+    }
+
+    @Override
+    public void onFailureAdd(Throwable throwable) {
+
+    }
+
 }

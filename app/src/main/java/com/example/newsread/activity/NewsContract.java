@@ -11,6 +11,8 @@ public interface NewsContract {
         void onDestroy();
 
         void requestDataFormsServer();
+
+        void requestDataFromServerToAddArticles(String endDate);
     }
 
     interface ShowNewsActivity
@@ -22,6 +24,15 @@ public interface NewsContract {
         void setDataTorecyclerView(ArrayList<Article> articles);
 
         void onResponseFailure(Throwable throwable);
+
+        void setArticles(ArrayList<Article> articles);
+
+        void addDataToListArticles(ArrayList<Article> articles);
+
+        void setStringEndData(ArrayList<Article> articles);
+
+        void trueShouldLoadMore();
+
     }
 
     interface GetNewsIntractor
@@ -33,7 +44,13 @@ public interface NewsContract {
             void onFailure(Throwable throwable);
         }
 
+        interface OnFinishAddListener
+        {
+            void onFinishedAdd(ArrayList<Article> articles);
+            void onFailureAdd(Throwable throwable);
+        }
+
         void getNewsArrayList(OnFinishedListener onFinishedListener);
-        void getNewsArrayListToDate(OnFinishedListener onFinishedListener, String date);
+        void getNewsArrayListToDate(OnFinishAddListener onFinishedListener, String date, String tag);
     }
 }

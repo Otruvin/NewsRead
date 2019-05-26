@@ -23,7 +23,6 @@ public class GetNewsIntractor implements NewsContract.GetNewsIntractor {
 
         Call<ListArticles> articlesCall = api.getMyJSON();
 
-        //Log.wtf("URL loaded", articlesCall.request().url() + "");
 
         articlesCall.enqueue(new Callback<ListArticles>() {
             @Override
@@ -39,20 +38,22 @@ public class GetNewsIntractor implements NewsContract.GetNewsIntractor {
     }
 
     @Override
-    public void getNewsArrayListToDate(OnFinishedListener onFinishedListener, String date) {
+    public void getNewsArrayListToDate(OnFinishAddListener onFinishedListener, String date, String tag) {
 
-        Call<ListArticles> articlesCallToDate = api.getMyJSONToDate(date);
+        Call<ListArticles> articlesCallToDate = api.getMyJSONToDate(date, tag);
 
         articlesCallToDate.enqueue(new Callback<ListArticles>() {
             @Override
             public void onResponse(Call<ListArticles> call, Response<ListArticles> response) {
-                onFinishedListener.onFinished((ArrayList<Article>) response.body().getArticles());
+                onFinishedListener.onFinishedAdd((ArrayList<Article>) response.body().getArticles());
             }
 
             @Override
             public void onFailure(Call<ListArticles> call, Throwable t) {
-                onFinishedListener.onFailure(t);
+                onFinishedListener.onFailureAdd(t);
             }
         });
     }
+
+
 }

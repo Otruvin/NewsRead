@@ -3,6 +3,8 @@ package com.example.newsread.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Article {
 
     @SerializedName("source")
@@ -94,4 +96,38 @@ public class Article {
         this.content = content;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Article)) return false;
+        Article article = (Article) o;
+        return Objects.equals(getSource(), article.getSource()) &&
+                Objects.equals(getAuthor(), article.getAuthor()) &&
+                Objects.equals(getTitle(), article.getTitle()) &&
+                Objects.equals(getDescription(), article.getDescription()) &&
+                Objects.equals(getUrl(), article.getUrl()) &&
+                Objects.equals(getUrlToImage(), article.getUrlToImage()) &&
+                Objects.equals(getPublishedAt(), article.getPublishedAt()) &&
+                Objects.equals(getContent(), article.getContent());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSource(), getAuthor(), getTitle(), getDescription(), getUrl(), getUrlToImage(), getPublishedAt(), getContent());
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "source=" + source +
+                ", author=" + author +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", urlToImage='" + urlToImage + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
