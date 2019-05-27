@@ -12,7 +12,7 @@ public interface NewsContract {
 
         void requestDataFormsServer();
 
-        void requestDataFromServerToAddArticles(String endDate);
+        void requestDataFromServerToAddArticles(String endDate, String tag);
     }
 
     interface ShowNewsActivity
@@ -33,6 +33,10 @@ public interface NewsContract {
 
         void trueShouldLoadMore();
 
+        void hideListNews();
+
+        void showListNews();
+
     }
 
     interface GetNewsIntractor
@@ -50,6 +54,7 @@ public interface NewsContract {
             void onFailureAdd(Throwable throwable);
         }
 
+        void getNewsArrayList(OnFinishedListener onFinishedListener, String tag);
         void getNewsArrayList(OnFinishedListener onFinishedListener);
         void getNewsArrayListToDate(OnFinishAddListener onFinishedListener, String date, String tag);
     }

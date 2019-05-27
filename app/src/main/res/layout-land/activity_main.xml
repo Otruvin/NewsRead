@@ -37,20 +37,28 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_news"
         android:layout_width="688dp"
-        android:layout_height="694dp"
-        android:layout_above="@+id/progress_weel"
+        android:layout_height="380dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-694dp"
         android:scrollbars="none" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingBarToSearch"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/list_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        wheel:srcCompat="@android:drawable/ic_menu_search" />
 
-    <com.pnikosis.materialishprogress.ProgressWheel
+
+    <!--<com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/progress_weel"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:visibility="gone" />
+        android:visibility="gone" />-->
 
 </RelativeLayout>

@@ -17,4 +17,7 @@ public interface ApiService {
     @GET("/v2/everything?apiKey=77faaa64c6ab4155a5dd9f160f8720ca")
     Call<ListArticles> getMyJSONToDate(@Query("to") String date,
                                        @Query("q") String tag);
+
+    @GET("/v2/everything?apiKey=77faaa64c6ab4155a5dd9f160f8720ca")
+    Call<ListArticles> getMyJSON(@Query("q") String tag);
 }

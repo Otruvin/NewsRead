@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNewsIntractor.OnFinishedListener,
                                         NewsContract.GetNewsIntractor.OnFinishAddListener{
 
-    private NewsContract.ShowNewsActivity showNewsActivity;
-    private NewsContract.GetNewsIntractor getNewsIntractor;
+    protected NewsContract.ShowNewsActivity showNewsActivity;
+    protected NewsContract.GetNewsIntractor getNewsIntractor;
 
     public NewsPresenter(NewsContract.ShowNewsActivity showNewsActivity, NewsContract.GetNewsIntractor getNewsIntractor) {
         this.showNewsActivity = showNewsActivity;
@@ -49,16 +49,19 @@ public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNe
     }
 
     @Override
-    public void requestDataFromServerToAddArticles(String endDate) {
-        getNewsIntractor.getNewsArrayListToDate(this, endDate, "latest");
+    public void requestDataFromServerToAddArticles(String endDate, String tag) {
+        getNewsIntractor.getNewsArrayListToDate(this, endDate, tag);
     }
 
     @Override
     public void onFinishedAdd(ArrayList<Article> articles) {
-        showNewsActivity.addDataToListArticles(articles);
-        showNewsActivity.setStringEndData(articles);
-        showNewsActivity.trueShouldLoadMore();
-    }
+        if (showNewsActivity != null)
+        {
+            showNewsActivity.addDataToListArticles(articles);
+            showNewsActivity.setStringEndData(articles);
+            showNewsActivity.trueShouldLoadMore();
+        }
+        }
 
     @Override
     public void onFailureAdd(Throwable throwable) {

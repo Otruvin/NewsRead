@@ -1,5 +1,7 @@
 package com.example.newsread.activity;
 
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.newsread.api.ApiService;
@@ -26,12 +28,29 @@ public class GetNewsIntractor implements NewsContract.GetNewsIntractor {
 
         articlesCall.enqueue(new Callback<ListArticles>() {
             @Override
-            public void onResponse(Call<ListArticles> call, Response<ListArticles> response) {
+            public void onResponse(@NonNull Call<ListArticles> call, @NonNull Response<ListArticles> response) {
                 onFinishedListener.onFinished((ArrayList<Article>) response.body().getArticles());
             }
 
             @Override
-            public void onFailure(Call<ListArticles> call, Throwable t) {
+            public void onFailure(@NonNull Call<ListArticles> call, @NonNull Throwable t) {
+                onFinishedListener.onFailure(t);
+            }
+        });
+    }
+
+    @Override
+    public void getNewsArrayList(OnFinishedListener onFinishedListener, String tag) {
+        Call<ListArticles> articlesCall = api.getMyJSON(tag);
+
+        articlesCall.enqueue(new Callback<ListArticles>() {
+            @Override
+            public void onResponse(@NonNull Call<ListArticles> call, @NonNull Response<ListArticles> response) {
+                onFinishedListener.onFinished((ArrayList<Article>) response.body().getArticles());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ListArticles> call, @NonNull Throwable t) {
                 onFinishedListener.onFailure(t);
             }
         });
@@ -44,12 +63,12 @@ public class GetNewsIntractor implements NewsContract.GetNewsIntractor {
 
         articlesCallToDate.enqueue(new Callback<ListArticles>() {
             @Override
-            public void onResponse(Call<ListArticles> call, Response<ListArticles> response) {
+            public void onResponse(@NonNull Call<ListArticles> call, @NonNull Response<ListArticles> response) {
                 onFinishedListener.onFinishedAdd((ArrayList<Article>) response.body().getArticles());
             }
 
             @Override
-            public void onFailure(Call<ListArticles> call, Throwable t) {
+            public void onFailure(@NonNull Call<ListArticles> call, @NonNull Throwable t) {
                 onFinishedListener.onFailureAdd(t);
             }
         });

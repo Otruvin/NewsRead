@@ -26,32 +26,40 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements NewsContract.ShowNewsActivity {
 
-    private NewsContract.presenter presenter;
+    protected NewsContract.presenter presenter;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private ArrayList<Article> articles;
-    RecyclerView.LayoutManager layoutManager;
-    Intent intentWithNewsView;
-    PieceNewsAdapter pieceNewsAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    protected Intent intentWithNewsView;
+    private PieceNewsAdapter pieceNewsAdapter;
     private boolean itShouldLoadMore = true;
-    String endData;
-    Set<String> latestNews;
-    Set<Article> tempLatestNews;
+    private String endData;
+    protected Set<String> latestNews;
+    protected Set<Article> tempLatestNews;
+    protected String tag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        initializeRecycleView();
+        initializeRecycleView(R.id.list_news);
         initProgressBar();
         latestNews = new HashSet<String>();
         tempLatestNews = new HashSet<Article>();
+        tag = "latest";
 
-        ProgressWheel progressWheel = (ProgressWheel) this.findViewById(R.id.progress_weel);
         presenter = new NewsPresenter(this, new GetNewsIntractor());
         presenter.requestDataFormsServer();
         intentWithNewsView = new Intent(this, NewsViewActivity.class);
+
+        findViewById(R.id.floatingBarToSearch).setOnClickListener( (View v) ->
+        {
+            Intent intentToSearch = new Intent(this, SearchedNewsActivity.class);
+            startActivity(intentToSearch);
+        });
 
     }
 
@@ -79,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
         pieceNewsAdapter = new PieceNewsAdapter(articles, recyclerClickListener, recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(pieceNewsAdapter);
+        Log.wtf("Tag: ", tag);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -91,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
                     {
                         if (itShouldLoadMore)
                         {
-                            presenter.requestDataFromServerToAddArticles(endData);
+                            presenter.requestDataFromServerToAddArticles(endData, tag);
                         }
                     }
                 }
@@ -105,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
         Log.d("Fail", "We suck in view");
     }
 
-    private void initProgressBar()
+    protected void initProgressBar()
     {
         progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
         progressBar.setIndeterminate(true);
@@ -121,9 +130,9 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
         this.addContentView(relativeLayout, params);
     }
 
-    private void initializeRecycleView()
+    protected void initializeRecycleView(int idRecView)
     {
-        recyclerView = (RecyclerView) findViewById(R.id.list_news);
+        recyclerView = (RecyclerView) findViewById(idRecView);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
         {
             layoutManager = new GridLayoutManager(MainActivity.this, 2);
@@ -170,4 +179,13 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
         this.itShouldLoadMore = true;
     }
 
+    @Override
+    public void hideListNews() {
+        recyclerView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showListNews() {
+        recyclerView.setVisibility(View.VISIBLE);
+    }
 }

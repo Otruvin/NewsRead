@@ -39,11 +39,19 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_news"
         android:layout_width="325dp"
-        android:layout_height="691dp"
-        android:layout_above="@+id/progress_weel"
+        android:layout_height="650dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-694dp"
         android:scrollbars="none" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingBarToSearch"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/list_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        wheel:srcCompat="@android:drawable/ic_menu_search" />
 
     <!--<com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/progress_weel"
