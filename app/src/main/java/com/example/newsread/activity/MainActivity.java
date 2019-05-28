@@ -18,7 +18,6 @@ import com.example.newsread.R;
 import com.example.newsread.model.Article;
 import com.example.newsread.model.PieceNewsAdapter;
 import com.example.newsread.model.RecyclerClickListener;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        initializeRecycleView(R.id.list_news);
+        initializeRecycleView(R.id.list_news_searched);
         initProgressBar();
         latestNews = new HashSet<String>();
         tempLatestNews = new HashSet<Article>();
@@ -87,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
         pieceNewsAdapter = new PieceNewsAdapter(articles, recyclerClickListener, recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(pieceNewsAdapter);
-        Log.wtf("Tag: ", tag);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 

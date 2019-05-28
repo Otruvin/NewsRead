@@ -61,11 +61,15 @@ public class NewsPresenter implements NewsContract.presenter, NewsContract.GetNe
             showNewsActivity.setStringEndData(articles);
             showNewsActivity.trueShouldLoadMore();
         }
-        }
+    }
 
     @Override
     public void onFailureAdd(Throwable throwable) {
-
+        if (showNewsActivity != null)
+        {
+            showNewsActivity.onResponseFailure(throwable);
+            showNewsActivity.hideProgress();
+        }
     }
 
 }
