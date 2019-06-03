@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="article"
+            name="articleFavor"
             type="com.example.newsread.model.Article"/>
     </data>
 
@@ -27,52 +27,67 @@
                 android:orientation="vertical"
                 android:padding="7pt">
 
-                <ImageView
-                    android:id="@+id/piece_news_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:paddingBottom="10pt"
-                    card_view:imageUrl="@{article.urlToImage}"
-                    tools:srcCompat="@tools:sample/avatars[0]" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/piece_news_img_favor"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:paddingBottom="10pt"
+                        card_view:imageUrlLogin="@{articleFavor.urlToImage}"
+                        tools:srcCompat="@tools:sample/avatars[0]" />
+
+                    <Button
+                        android:id="@+id/button_del_favor"
+                        android:layout_width="50dp"
+                        android:layout_height="38dp"
+                        android:background="@android:drawable/ic_delete" />
+
+                </RelativeLayout>
+
 
                 <TextView
-                    android:id="@+id/piece_news_ttl"
+                    android:id="@+id/piece_news_ttl_favor"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:autoSizeTextType="uniform"
-                    android:text="@{article.title}"
+                    android:text="@{articleFavor.title}"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/piece_news_date"
+                        android:id="@+id/piece_news_date_favor"
                         android:layout_width="170dp"
                         android:layout_height="34dp"
                         android:layout_weight="1"
-                        android:text="@{article.publishedAt}"
+                        android:text="@{articleFavor.publishedAt}"
                         android:textAlignment="textStart"
                         android:textSize="10sp" />
 
                     <TextView
-                        android:id="@+id/pice_news_source"
+                        android:id="@+id/pice_news_source_favor"
                         android:layout_width="157dp"
                         android:layout_height="34dp"
                         android:layout_weight="1"
                         android:paddingLeft="5dp"
-                        android:text="@{article.source.name}"
+                        android:text="@{articleFavor.source.name}"
                         android:textAlignment="textStart"
                         android:textSize="10sp" />
 
                     <Button
-                        android:id="@+id/button_send"
+                        android:id="@+id/button_send_favor"
                         android:layout_width="40dp"
                         android:layout_height="24dp"
                         android:background="@android:drawable/ic_dialog_email"
                         android:backgroundTint="@android:color/background_dark" />
                 </LinearLayout>
+
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

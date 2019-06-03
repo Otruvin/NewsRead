@@ -37,7 +37,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/list_news_searched"
+            android:id="@+id/list_news_searched_llogin"
             android:layout_width="325dp"
             android:layout_height="611dp"
             android:layout_marginBottom="-694dp"

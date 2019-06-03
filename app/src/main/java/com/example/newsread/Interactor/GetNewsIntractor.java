@@ -1,14 +1,12 @@
-package com.example.newsread.activity;
+package com.example.newsread.Interactor;
 
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
+import com.example.newsread.Contracts.NewsContract;
 import com.example.newsread.api.ApiService;
 import com.example.newsread.api.RetroClient;
 import com.example.newsread.model.Article;
 import com.example.newsread.model.ListArticles;
-import com.example.newsread.utils.InternetConnection;
 
 import java.util.ArrayList;
 

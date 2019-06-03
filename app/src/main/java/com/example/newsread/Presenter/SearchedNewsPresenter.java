@@ -1,5 +1,6 @@
-package com.example.newsread.activity;
+package com.example.newsread.Presenter;
 
+import com.example.newsread.Contracts.NewsContract;
 import com.example.newsread.model.Article;
 
 import java.util.ArrayList;

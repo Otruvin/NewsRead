@@ -1,14 +1,24 @@
 package com.example.newsread.model;
 
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
+@Entity(tableName = "articles")
 public class Article {
+
+    @PrimaryKey(autoGenerate = true)
+    private long id;
 
     @SerializedName("source")
     @Expose
+    @Embedded(prefix = "sou_")
     private Source source;
     @SerializedName("author")
     @Expose
@@ -31,6 +41,38 @@ public class Article {
     @SerializedName("content")
     @Expose
     private String content;
+
+    public Article(long id,
+                   Source source,
+                   Object author,
+                   String title,
+                   String description,
+                   String url,
+                   String urlToImage,
+                   String publishedAt,
+                   String content) {
+        this.id = id;
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+        this.content = content;
+    }
+
+    @Ignore
+    public Article()
+    { }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Source getSource() {
         return source;

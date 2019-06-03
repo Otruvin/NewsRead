@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "670413532493",
+    "firebase_url": "https://newsread-86a4d.firebaseio.com",
+    "project_id": "newsread-86a4d",
+    "storage_bucket": "newsread-86a4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670413532493:android:ad599fe302dec5bf",
+        "android_client_info": {
+          "package_name": "com.example.newsread"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670413532493-3e81qoi8ti1srnd7md3bhihg0s6tvbdo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.newsread",
+            "certificate_hash": "3bfc7db97f4d13cd6553853d36e524e676a8f334"
+          }
+        },
+        {
+          "client_id": "670413532493-cf8muj0hkpr4bm4flgg83i9bohp2rmm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmCDtzUadchNdWPvOAN2RvcBP-_K0S1Mg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670413532493-cf8muj0hkpr4bm4flgg83i9bohp2rmm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

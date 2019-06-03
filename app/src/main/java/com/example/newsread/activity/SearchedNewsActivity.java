@@ -1,14 +1,13 @@
 package com.example.newsread.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.newsread.Interactor.GetNewsIntractor;
+import com.example.newsread.Presenter.SearchedNewsPresenter;
 import com.example.newsread.R;
 import com.example.newsread.model.Article;
 
@@ -16,14 +15,21 @@ import java.util.HashSet;
 
 public class SearchedNewsActivity extends MainActivity {
 
+
+    private EditText searchQuery;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searched_news);
-        initializeRecycleView(R.id.list_news_searched);
+        initializeRecycleView(R.id.list_news_searched_llogin);
         initProgressBar();
+        initSearchElem(R.id.search_query);
 
-        EditText searchQuery = (EditText) findViewById(R.id.search_query);
+    }
+
+    protected void initSearchElem(int idSearchQuery)
+    {
+        searchQuery = (EditText) findViewById(idSearchQuery);
         searchQuery.requestFocus();
         searchQuery.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

@@ -14,6 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.newsread.Contracts.NewsContract;
+import com.example.newsread.Interactor.GetNewsIntractor;
+import com.example.newsread.Interactor.GetNewsLocalBaseIntractor;
+import com.example.newsread.Presenter.NewsPresenter;
 import com.example.newsread.R;
 import com.example.newsread.model.Article;
 import com.example.newsread.model.PieceNewsAdapter;
@@ -27,30 +31,30 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
 
     protected NewsContract.presenter presenter;
     private ProgressBar progressBar;
-    private RecyclerView recyclerView;
-    private ArrayList<Article> articles;
+    protected RecyclerView recyclerView;
+    protected ArrayList<Article> articles;
     private RecyclerView.LayoutManager layoutManager;
     protected Intent intentWithNewsView;
     private PieceNewsAdapter pieceNewsAdapter;
-    private boolean itShouldLoadMore = true;
-    private String endData;
+    protected boolean itShouldLoadMore = true;
+    protected String endData;
     protected Set<String> latestNews;
     protected Set<Article> tempLatestNews;
     protected String tag;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        initializeRecycleView(R.id.list_news_searched);
+        initializeRecycleView(R.id.list_news_searched_llogin);
         initProgressBar();
         latestNews = new HashSet<String>();
         tempLatestNews = new HashSet<Article>();
         tag = "latest";
 
-        presenter = new NewsPresenter(this, new GetNewsIntractor());
+        presenter = new NewsPresenter(this, new GetNewsIntractor(), new GetNewsLocalBaseIntractor());
+        presenter.getContext(this.getApplicationContext());
         presenter.requestDataFormsServer();
         intentWithNewsView = new Intent(this, NewsViewActivity.class);
 
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
 
     }
 
-    private RecyclerClickListener recyclerClickListener = new RecyclerClickListener() {
+    protected RecyclerClickListener recyclerClickListener = new RecyclerClickListener() {
         @Override
         public void onItemClick(Article article) {
             intentWithNewsView.putExtra("URL", article.getUrl());
@@ -83,10 +87,19 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
 
     @Override
     public void setDataTorecyclerView(ArrayList<Article> articles) {
-        pieceNewsAdapter = new PieceNewsAdapter(articles, recyclerClickListener, recyclerView);
+        pieceNewsAdapter = new PieceNewsAdapter(articles, recyclerClickListener);
         recyclerView.setHasFixedSize(true);
+        this.runOnUiThread(() ->
+        {
+            recyclerView.setAdapter(pieceNewsAdapter);
+        });
         recyclerView.setAdapter(pieceNewsAdapter);
 
+        addOnScrollListener();
+    }
+
+    protected void addOnScrollListener()
+    {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -162,9 +175,13 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
 
         itShouldLoadMore = false;
         this.articles.addAll(tempLatestNews);
-        this.pieceNewsAdapter.notifyDataSetChanged();
         tempLatestNews.clear();
 
+    }
+
+    @Override
+    public void notifyDataChangedInList() {
+        this.pieceNewsAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -186,4 +203,17 @@ public class MainActivity extends AppCompatActivity implements NewsContract.Show
     public void showListNews() {
         recyclerView.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void showNoInternetConnectionException() {
+        Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showEmptyLocalBaseException() {
+        Toast.makeText(this, "No data saved", Toast.LENGTH_SHORT).show();
+    }
+
 }
+
+

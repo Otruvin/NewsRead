@@ -23,7 +23,7 @@ public class PieceNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private ArrayList<Article> dataList;
     private RecyclerClickListener recyclerClickListener;
 
-    public PieceNewsAdapter(ArrayList<Article> dataList, RecyclerClickListener recyclerClickListener, RecyclerView recyclerView) {
+    public PieceNewsAdapter(ArrayList<Article> dataList, RecyclerClickListener recyclerClickListener) {
         this.dataList = dataList;
         this.recyclerClickListener = recyclerClickListener;
     }
