@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_favor_rec_view"
-        android:layout_width="330dp"
-        android:layout_height="691dp"
-        android:layout_marginLeft="45dp"/>
+        android:layout_width="665dp"
+        android:layout_height="370dp"
+        android:layout_marginLeft="30dp" />
 </LinearLayout>
